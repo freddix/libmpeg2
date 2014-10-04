@@ -1,7 +1,7 @@
 Summary:	MPEG-2 Decoder
 Name:		libmpeg2
 Version:	0.5.1
-Release:	6
+Release:	7
 License:	GPL
 Group:		X11/Applications/Graphics
 Source0:	http://libmpeg2.sourceforge.net/files/%{name}-%{version}.tar.gz
@@ -26,6 +26,9 @@ MPEG-2 Decoder.
 Summary:	MPEG-2 Decoder development files
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
+Requires:	SDL-devel
+Requires:	xorg-libXext-devel
+Requires:	xorg-libXv-devel
 Obsoletes:	mpeg2dec-devel
 
 %description devel
@@ -51,6 +54,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -73,8 +78,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libmpeg2.so
 %attr(755,root,root) %{_libdir}/libmpeg2convert.so
-%{_libdir}/libmpeg2.la
-%{_libdir}/libmpeg2convert.la
 %{_includedir}/mpeg2dec
 %{_pkgconfigdir}/libmpeg2.pc
 %{_pkgconfigdir}/libmpeg2convert.pc
